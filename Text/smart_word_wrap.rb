@@ -22,7 +22,8 @@ class SmartWordWrap
         len = 0;
 
         i = -1;
-        while ((i+=1) < array.size-1)
+        limit = array.size-1;
+        while ((i+=1) < limit)
             len += (word_len = array[i].size);
 
             if (len > @width)
@@ -30,6 +31,7 @@ class SmartWordWrap
                     len -= word_len;
                     array.insert(i-1, *(array[i].scan(/.{1,#{@width}}/m)));
                     array.delete_at(i);
+                    limit = array.size-1;
                     i -= 1; next;
                 end
                 break
