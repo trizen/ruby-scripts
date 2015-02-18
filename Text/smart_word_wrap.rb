@@ -28,8 +28,9 @@ class SmartWordWrap
             if (len > @width)
                 if (word_len > @width)
                     len -= word_len;
-                    array.insert(*(string.scan(/.{1,#{@width}}/m)));
+                    array.insert(i-1, *(array[i].scan(/.{1,#{@width}}/m)));
                     array.delete_at(i);
+                    i -= 1; next;
                 end
                 break
             end
@@ -114,4 +115,4 @@ puts obj.smart_wrap(text, 6);
 puts '-'*80;
 
 text = 'As shown in the above phases (or steps), the algorithm does many useless transformations';
-puts obj.smart_wrap(text, 20);
+puts obj.smart_wrap(text, 4);
