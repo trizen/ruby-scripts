@@ -117,4 +117,4 @@ puts obj.smart_wrap(text, 6);
 puts '-'*80;
 
 text = 'As shown in the above phases (or steps), the algorithm does many useless transformations';
-puts obj.smart_wrap(text, 4);
+puts obj.smart_wrap(text, 20);
