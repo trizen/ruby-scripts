@@ -41,7 +41,7 @@ class SmartWordWrap
             break if ((len += 1) >= @width);
         end
 
-        root.size > 0 ? root : (array.size > 0 ? array.join(' ') : "");
+        root.size > 0 ? root : nil;
     end
 
     # This function combines the
@@ -54,9 +54,9 @@ class SmartWordWrap
             if (value.is_a? Enumerable)
                 value.each { |item|
                     row += combine(root, item);
-                };
+                }
             else
-                row = [root + [value]];
+                row = [root + []];
             end
             root.pop;
         };
