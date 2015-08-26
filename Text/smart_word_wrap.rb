@@ -23,7 +23,7 @@ class SmartWordWrap
 
         i = -1;
         limit = array.size-1;
-        while ((i+=1) < limit)
+        while ((i+=1) <= limit)
             len += (word_len = array[i].size);
 
             if (len > @width)
@@ -41,7 +41,7 @@ class SmartWordWrap
             break if ((len += 1) >= @width);
         end
 
-        root.size > 0 ? root : (array.size > 0 ? array.join(' ') : []);
+        root.size > 0 ? root : (array.size > 0 ? array.join(' ') : "");
     end
 
     # This function combines the
@@ -117,4 +117,9 @@ puts obj.smart_wrap(text, 6);
 puts '-'*80;
 
 text = 'As shown in the above phases (or steps), the algorithm does many useless transformations';
+puts obj.smart_wrap(text, 20);
+
+puts '-'*80;
+
+text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 puts obj.smart_wrap(text, 20);
