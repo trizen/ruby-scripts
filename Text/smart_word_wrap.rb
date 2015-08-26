@@ -95,7 +95,7 @@ class SmartWordWrap
 
         lines = [];
         self.prepare_words(words).each { |path|
-            lines += (path.is_a?(Hash) ? combine([], path) : [path]);
+            lines += combine([], path);
         }
 
         best = self.find_best(lines);
