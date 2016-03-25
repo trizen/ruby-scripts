@@ -18,27 +18,31 @@ class SmartWordWrap
     # prepares the words for the combine() function.
     def prepare_words(array)
 
-        root = [];
-        len = 0;
+        root = []
+        len = 0
 
-        i = -1;
-        limit = array.size-1;
+        i = -1
+        limit = array.size-1
         while ((i+=1) <= limit)
-            len += (word_len = array[i].size);
+            len += (word_len = array[i].size)
 
-            if (len > @width)
-                if (word_len > @width)
-                    len -= word_len;
-                    array.insert(i-1, *(array[i].scan(/.{1,#{@width}}/m)));
-                    array.delete_at(i);
-                    limit = array.size-1;
-                    i -= 1; next;
+            if len > @width
+                if word_len > @width
+                    len -= word_len
+                    value = array[i]
+                    array.delete_at(i)
+                    array.insert(i, *(value.scan(/.{1,#{@width}}/m)))
+                    limit = array.size-1
+                    i -= 1; next
                 end
                 break
             end
 
-            root << {array[0..i].join(' ') => self.prepare_words(array[i+1 .. array.size-1])};
-            break if ((len += 1) >= @width);
+            root << [
+                array[0..i].join(' '),
+                prepare_words(array[i+1 .. limit])
+            ]
+            break if ((len += 1) >= @width)
         end
 
         root.size > 0 ? root : nil;
@@ -46,22 +50,23 @@ class SmartWordWrap
 
     # This function combines the
     # the parents with the childrens.
-    def combine(root, hash)
+    def combine(root, path)
 
-        row = [];
-        hash.each { |key, value|
-            root << key;
-            if (value.is_a? Enumerable)
-                value.each { |item|
-                    row += combine(root, item);
-                }
+        row = []
+        key = path.shift
+        path.each do |value|
+            root << key
+            if value == nil
+                row = [root + []]
             else
-                row = [root + []];
+                value.each do |item|
+                    row += combine(root, item)
+                end
             end
-            root.pop;
-        };
+            root.pop
+        end
 
-        row;
+        row
     end
 
     # This function finds the best
@@ -71,17 +76,17 @@ class SmartWordWrap
         best = {
             score: Float::INFINITY,
             value: [],
-        };
+        }
 
         arrays.each { |array|
             score = 0;
             array.each { |line|
-                score += (@width - line.size)**2;
+                score += (@width - line.size)**2
             }
 
-            if (score < best[:score])
-                best[:score] = score;
-                best[:value] = array;
+            if score < best[:score]
+                best[:score] = score
+                best[:value] = array
             end
         }
 
@@ -94,16 +99,16 @@ class SmartWordWrap
     def smart_wrap(text, width)
 
         @width = width;
-        words = text.is_a?(Enumerable) ? text : text.split(' ');
+        words = text.is_a?(Enumerable) ? text : text.split(' ')
 
         lines = [];
         self.prepare_words(words).each { |path|
-            lines += combine([], path);
+            lines += combine([], path)
         }
 
-        best = self.find_best(lines);
-        best == nil and return nil;
-        return best.join("\n");
+        best = self.find_best(lines)
+        best == nil and return nil
+        return best.join("\n")
     end
 
 end
@@ -112,17 +117,17 @@ end
 ## Usage examples
 #
 
-text = 'aaa bb cc ddddd';
-obj = SmartWordWrap.new;
+text = 'aaa bb cc ddddd'
+obj = SmartWordWrap.new
 
-puts obj.smart_wrap(text, 6);
+puts obj.smart_wrap(text, 6)
 
-puts '-'*80;
+puts '-'*80
 
-text = 'As shown in the above phases (or steps), the algorithm does many useless transformations';
-puts obj.smart_wrap(text, 20);
+text = 'As shown in the above phases (or steps), the algorithm does many useless transformations'
+puts obj.smart_wrap(text, 20)
 
-puts '-'*80;
+puts '-'*80
 
-text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
-puts obj.smart_wrap(text, 20);
+text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+puts obj.smart_wrap(text, 20)

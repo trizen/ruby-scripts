@@ -26,11 +26,12 @@ class SmartWordWrap
         while ((i+=1) <= limit)
             len += (word_len = array[i].size)
 
-            if (len > @width)
-                if (word_len > @width)
+            if len > @width
+                if word_len > @width
                     len -= word_len
-                    array.insert(i-1, *(array[i].scan(/.{1,#{@width}}/m)))
+                    value = array[i]
                     array.delete_at(i)
+                    array.insert(i, *(value.scan(/.{1,#{@width}}/m)))
                     limit = array.size-1
                     i -= 1; next
                 end
@@ -38,10 +39,10 @@ class SmartWordWrap
             end
 
             root << [
-                array[0..i].join(' '), prepare_words(array[i+1 .. array.size-1], depth+1)
+                array[0..i].join(' '), prepare_words(array[i+1 .. limit], depth+1)
             ]
 
-            if (depth == 0)
+            if depth == 0
                 yield(root[0])
                 root = []
             end
@@ -58,7 +59,7 @@ class SmartWordWrap
         key = path.shift
         path.each do |value|
             root << key
-            if (value == nil)
+            if value == nil
                 block[root]
             else
                 value.each do |item|
@@ -89,7 +90,7 @@ class SmartWordWrap
                     score += (@width - line.size)**2
                 end
 
-                if (score < best[:score])
+                if score < best[:score]
                     best[:score] = score
                     best[:value] = combination+[]
                 end
