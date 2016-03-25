@@ -39,7 +39,8 @@ class SmartWordWrap
             end
 
             root << [
-                array[0..i].join(' '), prepare_words(array[i+1 .. limit], depth+1)
+                array[0..i].join(' '),
+                prepare_words(array[i+1 .. limit], depth+1)
             ]
 
             if depth == 0
@@ -50,7 +51,7 @@ class SmartWordWrap
             break if ((len += 1) >= @width)
         end
 
-        root.size > 0 ? root : nil
+        root
     end
 
     # This function combines the
@@ -59,7 +60,7 @@ class SmartWordWrap
         key = path.shift
         path.each do |value|
             root << key
-            if value == nil
+            if value.empty?
                 block[root]
             else
                 value.each do |item|

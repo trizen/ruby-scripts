@@ -45,7 +45,7 @@ class SmartWordWrap
             break if ((len += 1) >= @width)
         end
 
-        root.size > 0 ? root : nil;
+        root
     end
 
     # This function combines the
@@ -56,7 +56,7 @@ class SmartWordWrap
         key = path.shift
         path.each do |value|
             root << key
-            if value == nil
+            if value.empty?
                 row = [root + []]
             else
                 value.each do |item|
