@@ -68,7 +68,10 @@ class SmartWordWrap
     # combination available and returns it.
     def find_best(arrays)
 
-        best = {score: Float::INFINITY};
+        best = {
+            score: Float::INFINITY,
+            value: [],
+        };
 
         arrays.each { |array|
             score = 0;
@@ -82,7 +85,7 @@ class SmartWordWrap
             end
         }
 
-        best[:value];
+        best[:value]
     end
 
     # This is the main function of the algorithm
