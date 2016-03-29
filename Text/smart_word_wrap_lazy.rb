@@ -87,7 +87,7 @@ class SmartWordWrap
         prepare_words(words) do |path|
             combine([], path, ->(combination) do
                 score = 0
-                combination.each do |line|
+                combination[0..-2].each do |line|
                     score += (@width - line.size)**2
                 end
 
