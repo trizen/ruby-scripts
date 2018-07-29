@@ -1,8 +1,8 @@
 #!/usr/bin/ruby
 
-# A simple addition algorithm to add two binary-strings.
+# A simple long addition algorithm to add two base-10 strings.
 
-def add_binary(a,b)
+def long_addition(a,b)
 
     a = a.reverse.chars.map{|c| c.to_i }
     b = b.reverse.chars.map{|c| c.to_i }
@@ -16,9 +16,9 @@ def add_binary(a,b)
     for i in (0 .. l-1)
         c[i] += (a[i] + b[i])
 
-        if (c[i] >= 2)
-            c[i+1] = c[i]>>1
-            c[i] &= 1
+        if (c[i] >= 10)
+            c[i+1] = c[i]/10
+            c[i] %= 10
         end
     end
 
@@ -26,4 +26,4 @@ def add_binary(a,b)
     c.join.reverse
 end
 
-puts add_binary("101110011101110010101010100001", "1101011110100111101111000100")       #=> 111011111100011010011001100101
+puts long_addition("726543009768266516584962991253", "676316691562960674239642216436")       #=> 1402859701331227190824605207689

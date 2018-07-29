@@ -11,6 +11,7 @@ A small collection of day-to-day Ruby scripts used in solving problems or in imp
     * [Is happy number](./Math/is_happy_number.rb)
     * [Is perfect square](./Math/is_perfect_square.rb)
     * [LambertW function](./Math/LambertW_function.rb)
+    * [Long addition](./Math/long_addition.rb)
     * [Roman numerals decode](./Math/roman_numerals_decode.rb)
     * [Roman numerals encode](./Math/roman_numerals_encode.rb)
 * Text
