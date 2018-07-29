@@ -12,6 +12,7 @@ A small collection of day-to-day Ruby scripts used in solving problems or in imp
     * [Is perfect square](./Math/is_perfect_square.rb)
     * [LambertW function](./Math/LambertW_function.rb)
     * [Roman numerals decode](./Math/roman_numerals_decode.rb)
+    * [Roman numerals encode](./Math/roman_numerals_encode.rb)
 * Text
     * [Smart word wrap](./Text/smart_word_wrap.rb)
     * [Smart word wrap lazy](./Text/smart_word_wrap_lazy.rb)
