@@ -6,7 +6,7 @@ A small collection of day-to-day Ruby scripts used in solving problems or in imp
 
 * Math
     * [Binary addition](./Math/binary_addition.rb)
-    * [Count primes bellow n](./Math/count_primes_bellow_n.rb)
+    * [Count primes below n](./Math/count_primes_below_n.rb)
     * [Is even perfect number](./Math/is_even_perfect_number.rb)
     * [Is happy number](./Math/is_happy_number.rb)
     * [Is perfect square](./Math/is_perfect_square.rb)
